@@ -49,11 +49,13 @@ public class ExtentReportUtilities implements ITestListener {
 				MarkupHelper.createLabel("Name of the Passed Test Case is : " + result.getName(), ExtentColor.GREEN));
 	}
 
-	public void onTestFailure(ITestResult result) {
+	public void onTestFailure(ITestResult result) 
+	{
 		test = reports.createTest(result.getName());
 		test.log(Status.FAIL,
 				MarkupHelper.createLabel("Name of the Failed Test Case is : " + result.getName(), ExtentColor.RED));
-		if (result.getStatus() == ITestResult.FAILURE) {
+		if (result.getStatus() == ITestResult.FAILURE)
+		{
 			test.fail("Test failed");
 			String failureReason = result.getThrowable().getMessage();
 			test.log(Status.FAIL, "Failure Reason: " + failureReason);

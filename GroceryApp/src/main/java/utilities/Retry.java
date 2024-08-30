@@ -12,7 +12,8 @@ public class Retry implements IRetryAnalyzer {
 	private int count = 0;
 
 	@Override
-	public boolean retry(final ITestResult iTestResult) {
+	public boolean retry(final ITestResult iTestResult)
+	{
 		if (!iTestResult.isSuccess()) {
 			if (this.count < maxTry) {
 				LOG.info("Retrying test " + iTestResult.getName() + " with status "
