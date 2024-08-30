@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Grouping">
+	<listeners>
+		<listener class-name="utilities.ExtentReportUtilities" />
+	</listeners>
+	<test name="Regression">
+		<parameter name="Browser" value="chrome"></parameter>
+		<groups>
+			<run>
+				<exclude name="regression"></exclude>
+			</run>
+		</groups>
+		<classes>
+			<class name="testCases.ManageCategoryPageTest"></class>
+			<class name="testCases.ManageSubCategoryPageTest"></class>
+		</classes>
+	</test> 
+</suite>

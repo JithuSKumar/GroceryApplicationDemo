@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="GroceryApplicationProjectSuite">
+	<listeners>
+		<listener class-name="utilities.ExtentReportUtilities" />
+		<listener class-name="utilities.RetryListener"></listener>
+	</listeners>
+	<test name="ChromeTest">
+		<parameter name="Browser" value="chrome"></parameter>
+
+		<classes>
+			<class name="testCases.ManageCategoryPageTest"></class>
+			<class name="testCases.ManageSubCategoryPageTest"></class>
+		</classes>
+	</test>
+</suite>

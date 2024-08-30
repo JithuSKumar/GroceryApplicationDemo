@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="GroceryApplicationProjectSuite" parallel="tests" thread-count="2">
+    
+    <!-- Define listeners at the suite level -->
+    <listeners>
+        <listener class-name="utilities.ExtentReportUtilities"/>
+    </listeners>
+
+    <!-- First test block -->
+    <test name="ChromeTest">
+        <!-- Define parameters at the test level -->
+        <parameter name="Browser" value="chrome"/>
+        <classes>
+            <class name="testCases.LoginPageTest"/>
+            <class name="testCases.HomePageTest"/>
+        </classes>
+    </test>
+
+    <!-- Second test block -->
+    <test name="FirefoxTest">
+        <parameter name="Browser" value="firefox"/>
+        <classes>
+            <class name="testCases.LoginPageTest"/>
+            <class name="testCases.HomePageTest"/>
+        </classes>
+    </test>
+
+</suite>
