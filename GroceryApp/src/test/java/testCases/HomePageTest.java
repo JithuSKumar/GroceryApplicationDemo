@@ -25,7 +25,7 @@ public class HomePageTest extends BaseClassTest {
 		
 		loginpage.sendUsername(userName);
 		loginpage.sendPassword(password);
-		loginpage.signIn();
+		homePage=loginpage.signInChaining();
 		boolean isNavigatedToHomePage = loginpage.isHomePageDisplayed();
 		assertTrue(isNavigatedToHomePage,Constant.homePageLogin);
 		

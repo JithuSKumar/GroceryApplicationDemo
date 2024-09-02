@@ -85,4 +85,20 @@ public class LoginPage {
 		
 		return new HomePage(driver);
 	}
+	
+	public ManageAdminUserPage signInChain()
+	{
+		signInElement.click();
+		pageTitle();
+
+		try {
+			screenShotUtilities.captureScreenShot(driver, pageTitle);
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return new ManageAdminUserPage(driver);
+	}
 }

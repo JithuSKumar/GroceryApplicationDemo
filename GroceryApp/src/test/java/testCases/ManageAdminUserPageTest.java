@@ -22,10 +22,10 @@ public class ManageAdminUserPageTest extends BaseClassTest {
 	public void verifyValidAdminUserCreation() throws InterruptedException, IOException
 	{
 		loginpage = new LoginPage(driver);
-		adminUserCreationPage = new ManageAdminUserPage(driver);
+		//adminUserCreationPage = new ManageAdminUserPage(driver);
 		loginpage.sendUsername(userName);
 		loginpage.sendPassword(password);
-		loginpage.signIn();
+		adminUserCreationPage= loginpage.signInChain();
 		boolean isNavigatedToHomePage = loginpage.isHomePageDisplayed();
 		assertTrue(isNavigatedToHomePage,Constant.homePageLogin);
 		adminUserCreationPage.adminUserListSelection();
