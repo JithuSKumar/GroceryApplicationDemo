@@ -52,10 +52,8 @@ public class BaseClassTest {
 		{
 			driver = new FirefoxDriver();
 		}
-		//driver.get("https://groceryapp.uniqassosiates.com/admin/login");
 		driver.get(properties.getProperty("BaseUrl"));
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(100));
 		
 	}
