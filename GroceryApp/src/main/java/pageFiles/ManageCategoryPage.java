@@ -83,7 +83,6 @@ public class ManageCategoryPage {
 		searchCategoryInputElement.sendKeys(searchInput);
 		subSearchElement.click();
 		String filteredresult = firstCategoryInListElement.getText();
-		System.out.println(filteredresult);
 		return filteredresult;
 	}
 

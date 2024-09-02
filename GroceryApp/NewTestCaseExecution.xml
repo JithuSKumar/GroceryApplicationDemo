@@ -9,8 +9,8 @@
 		<parameter name="Browser" value="chrome"></parameter>
 
 		<classes>
-			<class name="testCases.ManageCategoryPageTest"></class>
-			<class name="testCases.ManageSubCategoryPageTest"></class>
+			<class name="testCases.LoginPageTest"></class>
+			<!--<class name="testCases.ManageSubCategoryPageTest"></class> -->
 		</classes>
 	</test>
 </suite>

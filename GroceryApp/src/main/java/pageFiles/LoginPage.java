@@ -69,4 +69,20 @@ public class LoginPage {
 	public boolean isHomePageDisplayed() {
 		return homePage.isDisplayed();
 	}
+	
+	public HomePage signInChaining()
+	{
+		signInElement.click();
+		pageTitle();
+
+		try {
+			screenShotUtilities.captureScreenShot(driver, pageTitle);
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return new HomePage(driver);
+	}
 }

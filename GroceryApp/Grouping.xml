@@ -8,6 +8,7 @@
 		<groups>
 			<run>
 				<exclude name="regression"></exclude>
+				<exclude name="smoke"></exclude>
 			</run>
 		</groups>
 		<classes>

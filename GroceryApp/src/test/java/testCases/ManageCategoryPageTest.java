@@ -41,7 +41,7 @@ public class ManageCategoryPageTest extends BaseClassTest {
 		Assert.assertEquals(actualTableStatus, true,Constant.manageCategoryList );
 	}
 	
-	@Test (priority = 2)
+	@Test (priority = 2, groups= {"smoke"})
 	public void VerifyNewCategoryCreation() throws AWTException, IOException
 	{
 		loginpage = new LoginPage(driver);
@@ -59,7 +59,7 @@ public class ManageCategoryPageTest extends BaseClassTest {
 		Assert.assertEquals(actualValueString, expectedValue, Constant.newCategoryFail);
 	}
 	
-	@Test (priority = 3)
+	@Test (priority = 3, groups= {"smoke"})
 	public void searchNewlyAddedCategory() throws IOException
 	{
 		loginpage = new LoginPage(driver);
@@ -68,10 +68,8 @@ public class ManageCategoryPageTest extends BaseClassTest {
 		loginpage.sendPassword(password);
 		loginpage.signIn();
 		manageCategoryPage.categoryPageSelection();	
-		System.out.println(getCreatedCategoryNameString());
 		manageCategoryPage.searchNewlyAddedCategoryVisibility(getCreatedCategoryNameString());
 		String actualValueString = manageCategoryPage.fetchingTheFirstEntryinTable();
-		System.out.println(actualValueString);
 		String expectedValueString = getCreatedCategoryNameString();
 		Assert.assertEquals(actualValueString, expectedValueString, Constant.categoryFilter);
 		

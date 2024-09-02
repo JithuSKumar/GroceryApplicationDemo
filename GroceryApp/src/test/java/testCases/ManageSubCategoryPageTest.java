@@ -29,7 +29,7 @@ public class ManageSubCategoryPageTest extends BaseClassTest {
 
 	String createdCategoryNameString;
 	
-	@Test (priority = 1)
+	@Test (priority = 1, groups= {"smoke"})
 	public void verifyIfCategoryListisLoaded() throws IOException
 	{
 		loginpage = new LoginPage(driver);

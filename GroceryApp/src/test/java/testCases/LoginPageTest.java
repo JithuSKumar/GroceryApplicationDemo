@@ -21,14 +21,13 @@ public class LoginPageTest extends BaseClassTest {
 	public void validDataLogin() throws IOException
 	{
 		loginpage = new LoginPage(driver);
-		homePage = new HomePage(driver);
+		//homePage = new HomePage(driver);
 		screenShotUtilities = new ScreenShotUtilities();
 		loginpage.sendUsername("admin");
 		loginpage.sendPassword("admin");
 		screenShotUtilities.captureScreenShot(driver, userName);
-		loginpage.signIn();
+		homePage=loginpage.signInChaining();
 		String actual = homePage.getDashboardText();
-		System.out.println("Successful Login: " + actual);
 		String expected = "Dashboard";
 		Assert.assertEquals(actual, expected, Constant.loginPageStep_validDataLogin);
 	}
