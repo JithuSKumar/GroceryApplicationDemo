@@ -28,7 +28,7 @@ public class ManageCategoryPageTest extends BaseClassTest {
 
 	String createdCategoryNameString;
 	
-	@Test (priority = 1,groups = {"regression"})
+	@Test (priority = 1,groups = "regression")
 	public void verifyIfCategoryListisLoaded() throws IOException
 	{
 		loginpage = new LoginPage(driver);

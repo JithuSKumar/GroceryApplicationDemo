@@ -21,7 +21,6 @@ public class LoginPageTest extends BaseClassTest {
 	public void validDataLogin() throws IOException
 	{
 		loginpage = new LoginPage(driver);
-		//homePage = new HomePage(driver);
 		screenShotUtilities = new ScreenShotUtilities();
 		loginpage.sendUsername("admin");
 		loginpage.sendPassword("admin");
