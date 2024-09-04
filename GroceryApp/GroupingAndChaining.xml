@@ -1,22 +1,22 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="GroupingAndChaining">
-	
+
 	<listeners>
 		<listener class-name="utilities.ExtentReportUtilities" />
 	</listeners>
-	
+
 	<test name="ChainingOfAllClasses">
-		
+
 		<parameter name="Browser" value="chrome"></parameter>
-		
+
 		<groups>
 			<run>
 				<exclude name="Individual"></exclude>
-			<!--	<exclude name="smoke"></exclude>
--->			</run>
+			</run>
 		</groups>
-		<!-- Each test class includes all tests from the start up to its specific functionality -->
+		<!-- Each test class includes all tests from the start up to its
+		specific functionality -->
 		<classes>
 			<class name="testCases.LoginPageTest"></class>
 			<class name="testCases.HomePageTest"></class>
@@ -28,7 +28,7 @@
 			<class name="testCases.ManageFooterPageTest"></class>
 			<class name="testCases.ManageMenuPageTest"></class>
 		</classes>
-		
+
 	</test>
 </suite>
 
