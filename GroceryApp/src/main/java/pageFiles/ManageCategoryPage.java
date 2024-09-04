@@ -1,6 +1,7 @@
 package pageFiles;
 
 import java.awt.AWTException;
+import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import utilities.FilePaths;
 import utilities.FileUploadUtilities;
 import utilities.GeneralUtilities;
+import utilities.ScreenShotUtilities;
 import utilities.WaitUtilities;
 
 public class ManageCategoryPage {
@@ -19,7 +21,13 @@ public class ManageCategoryPage {
 	FilePaths filepath = new FilePaths();
 	WaitUtilities waitUtility = new WaitUtilities();
 	FileUploadUtilities fileUploadUtility = new FileUploadUtilities();
+	ScreenShotUtilities screenShotUtilities = new ScreenShotUtilities();
 	String categoryNameRandomString;
+	String pageTitle;
+
+	public void pageTitle() {
+		this.pageTitle = driver.getTitle().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+	}
 
 	public ManageCategoryPage(WebDriver driver) {
 		this.driver = driver;
@@ -54,6 +62,8 @@ public class ManageCategoryPage {
 	WebElement subSearchElement;
 	@FindBy(xpath = "//tbody//tr[1]/td//i[@class='fas fa-trash-alt']")
 	WebElement firstEntryDeletElement;
+	@FindBy(xpath = "//ol[@class='breadcrumb float-sm-right']")
+	WebElement breadCrumbElement;
 
 	public boolean categoryPageSelection() {
 		// manageCategoryIconElement.click();
@@ -98,5 +108,23 @@ public class ManageCategoryPage {
 
 	public String getCategoryNameString() {
 		return categoryNameRandomString;
+	}
+	
+	public String getBreadCrumbText() {
+		return breadCrumbElement.getText();
+	}
+	public ManageSubCategoryPage categoryPageSelectionChaining() {
+		categoryElement.click();
+		pageTitle();
+
+		try {
+			screenShotUtilities.captureScreenShot(driver, pageTitle);
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return new ManageSubCategoryPage(driver);
 	}
 }

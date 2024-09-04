@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import utilities.ExcelUtilities;
 import utilities.GeneralUtilities;
+import utilities.ScreenShotUtilities;
 import utilities.WaitUtilities;
 
 public class ManageFooterPage {
@@ -17,7 +18,13 @@ public class ManageFooterPage {
 	GeneralUtilities generaUtility = new GeneralUtilities();
 	WaitUtilities waitUtility = new WaitUtilities();
 	ExcelUtilities excelutility = new ExcelUtilities();
-
+	ScreenShotUtilities screenShotUtilities = new ScreenShotUtilities();
+	String pageTitle;
+	
+	public void pageTitle() {
+		this.pageTitle = driver.getTitle().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+	}
+	
 	public ManageFooterPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -32,7 +39,7 @@ public class ManageFooterPage {
 	@FindBy(xpath = "//table[@class='table table-bordered table-hover table-sm']//tbody")
 	List<WebElement> tableRows;
 
-	public void pageVisibilityCheck() {
+	public void footerPageVisibilityCheck() {
 		manageFooterElement.click();
 	}
 
@@ -41,9 +48,24 @@ public class ManageFooterPage {
 	}
 
 	public void saveDataTofile() throws IOException {
-		pageVisibilityCheck();
+		footerPageVisibilityCheck();
 		excelutility.saveTableContentsToNewExcelFile(tableRows, generaUtility.pageTitle(driver),
 				this.getClass().getSimpleName());
+	}
+	
+	public ManageMenuPage footerPageSelectionChaining() {
+		manageFooterElement.click();
+		pageTitle();
+
+		try {
+			screenShotUtilities.captureScreenShot(driver, pageTitle);
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return new ManageMenuPage(driver);
 	}
 
 }

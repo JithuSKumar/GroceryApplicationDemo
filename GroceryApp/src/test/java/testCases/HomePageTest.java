@@ -18,24 +18,26 @@ public class HomePageTest extends BaseClassTest {
 	HomePage homePage;
 	
 	@Test
+	public void verifyChainingHomePage()
+	{
+		loginpage = new LoginPage(driver);
+		loginpage.sendUsername(userName);
+		loginpage.sendPassword(password);
+		homePage=loginpage.signInChaining();
+		String actualValueString = homePage.getBreadCrumbText();
+		String expectedValue = "Dashboard"; 
+		Assert.assertTrue(actualValueString.contains(expectedValue), Constant.breadCrumbsString + expectedValue);
+	}
+	
+	@Test(groups = "Individual")
 	public void verifyTheUserAbleToLoginWithValidCredentials() throws IOException
 	{
 		loginpage = new LoginPage(driver);
-		homePage = new HomePage(driver);
-		
 		loginpage.sendUsername(userName);
 		loginpage.sendPassword(password);
 		homePage=loginpage.signInChaining();
 		boolean isNavigatedToHomePage = loginpage.isHomePageDisplayed();
 		assertTrue(isNavigatedToHomePage,Constant.homePageLogin);
-		
-		String actual = homePage.getDashboardText();
-		String expected = "Dashboard";
-		Assert.assertEquals(actual, expected,Constant.homePageDashboard);
-		
-		homePage.manageProdcutStatus();
-		boolean actualProductStatus = homePage.manageProdcutStatus();
-		Assert.assertEquals(actualProductStatus, false,Constant.homePageProductStatus );
 	}
 	
 	

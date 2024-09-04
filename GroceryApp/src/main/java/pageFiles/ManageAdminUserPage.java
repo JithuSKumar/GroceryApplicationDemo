@@ -63,6 +63,8 @@ public class ManageAdminUserPage {
 	List<WebElement> tableRows;
 	@FindBy(xpath = "//i[@class='ace-icon fa fa-power-off']")
 	WebElement logoutElement;
+	@FindBy(xpath = "//ol[@class='breadcrumb float-sm-right']")
+	WebElement breadCrumbElement;
 
 	public boolean isAdminUserTabVisible() {
 		return moreInfoOfAdminUserElement.isDisplayed();
@@ -119,5 +121,24 @@ public class ManageAdminUserPage {
 	public void userLogout() {
 		userIconElement.click();
 		logoutElement.click();
+	}
+
+	public String getBreadCrumbText() {
+		return breadCrumbElement.getText();
+	}
+	
+	public ManageCategoryPage adminUserListSelectionChaining() {
+		moreInfoOfAdminUserElement.click();
+		pageTitle();
+
+		try {
+			screenShotUtilities.captureScreenShot(driver, pageTitle);
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return new ManageCategoryPage(driver);
 	}
 }

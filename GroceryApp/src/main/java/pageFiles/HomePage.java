@@ -1,13 +1,23 @@
 package pageFiles;
 
+import java.io.IOException;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import utilities.ScreenShotUtilities;
+
 public class HomePage {
 
 	WebDriver driver;
+	ScreenShotUtilities screenShotUtilities = new ScreenShotUtilities();
+	String pageTitle;
+
+	public void pageTitle() {
+		this.pageTitle = driver.getTitle().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+	}
 
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
@@ -22,8 +32,8 @@ public class HomePage {
 	WebElement manageProductElement;
 	@FindBy(xpath = "//i[@class='nav-icon fas fa-edit']")
 	WebElement manageContentElement;
-	@FindBy(xpath = "//i[@class='nav-icon fas fa-list-alt']")
-	WebElement manageCategoryElement;
+	@FindBy(xpath = "//ol[@class='breadcrumb float-sm-right']")
+	WebElement breadCrumbElement;
 	@FindBy(xpath = "//i[@class='nav-icon fas fa-users']")
 	WebElement adminUserElement;
 	@FindBy(xpath = "//i[@class='nav-icon fas fa-']")
@@ -33,8 +43,22 @@ public class HomePage {
 		return dashboardElement.getText();
 	}
 
-	public boolean manageProdcutStatus() {
-		return manageCategoryElement.isSelected();
+	public String getBreadCrumbText() {
+		return breadCrumbElement.getText();
 	}
 
+	public ManageAdminUserPage getDashboardTextChaining() {
+		dashboardElement.getText();
+		pageTitle();
+
+		try {
+			screenShotUtilities.captureScreenShot(driver, pageTitle);
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return new ManageAdminUserPage(driver);
+	}
 }

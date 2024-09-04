@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import utilities.ExcelUtilities;
 import utilities.GeneralUtilities;
+import utilities.ScreenShotUtilities;
 import utilities.WaitUtilities;
 
 public class ManageNewsPage {
@@ -18,6 +19,8 @@ public class ManageNewsPage {
 	GeneralUtilities generaUtility = new GeneralUtilities();
 	WaitUtilities waitUtility = new WaitUtilities();
 	ExcelUtilities excelutility = new ExcelUtilities();
+	ScreenShotUtilities screenShotUtilities = new ScreenShotUtilities();
+	String pageTitle;
 
 	public ManageNewsPage(WebDriver driver) {
 		this.driver = driver;
@@ -35,7 +38,12 @@ public class ManageNewsPage {
 	@FindBy(xpath = "//a[@class='btn btn-rounded btn-danger']")
 	WebElement newButtonElement;
 
-	public void pageVisibilityCheck() {
+
+	public void pageTitle() {
+		this.pageTitle = driver.getTitle().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+	}
+	
+	public void newsPageVisibilityCheck() {
 		manageNewsElement.click();
 	}
 
@@ -44,8 +52,23 @@ public class ManageNewsPage {
 	}
 
 	public void saveDataTofile() throws IOException {
-		pageVisibilityCheck();
+		newsPageVisibilityCheck();
 		excelutility.saveTableContentsToNewExcelFile(tableRows, generaUtility.pageTitle(driver),
 				this.getClass().getSimpleName());
+	}
+	
+	public ManageFooterPage newsPageSelectionChaining() {
+		manageNewsElement.click();
+		pageTitle();
+
+		try {
+			screenShotUtilities.captureScreenShot(driver, pageTitle);
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return new ManageFooterPage(driver);
 	}
 }

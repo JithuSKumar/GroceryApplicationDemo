@@ -42,7 +42,6 @@ public class BaseClassTest {
 	public void beforeMethod(String browserName) throws IOException
 	{
 		extentReportUtilities = new ExtentReportUtilities();
-		//extentTest = extentReportUtilities.createTest("Name");
 		testBasics();
 		if (browserName.equals("chrome"))
 		{

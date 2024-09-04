@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import constant.Constant;
 import pageFiles.ManageAdminUserPage;
+import pageFiles.HomePage;
 import pageFiles.LoginPage;
 import utilities.ExcelUtilities;
 
@@ -16,13 +17,28 @@ public class ManageAdminUserPageTest extends BaseClassTest {
 
 
 	LoginPage loginpage;
+	HomePage homePage;
 	ManageAdminUserPage adminUserCreationPage;
 
-	@Test(priority = 1)
+	
+	@Test
+	public void verifyChainingAdminUserCreationPage()
+	{
+		loginpage = new LoginPage(driver);
+		loginpage.sendUsername(userName);
+		loginpage.sendPassword(password);
+		homePage=loginpage.signInChaining();
+		adminUserCreationPage= homePage.getDashboardTextChaining();
+		adminUserCreationPage.adminUserListSelection();
+		String actualValueString = adminUserCreationPage.getBreadCrumbText();
+		String expectedValue = "Admin Users"; 
+		Assert.assertTrue(actualValueString.contains(expectedValue), Constant.breadCrumbsString + expectedValue);
+	}
+	
+	@Test(priority = 1,groups = "Individual")
 	public void verifyValidAdminUserCreation() throws InterruptedException, IOException
 	{
 		loginpage = new LoginPage(driver);
-		//adminUserCreationPage = new ManageAdminUserPage(driver);
 		loginpage.sendUsername(userName);
 		loginpage.sendPassword(password);
 		adminUserCreationPage= loginpage.signInChain();
@@ -40,7 +56,7 @@ public class ManageAdminUserPageTest extends BaseClassTest {
 		Assert.assertEquals(actualValueString, expectedValue, Constant.newUserCreationFail);
 	}
 	
-	@Test(priority = 2,groups = {"regression"})
+	@Test(priority = 2,groups = "Individual")
 	public void verifyFilteringofNewUser() throws InterruptedException, IOException
 	{
 		loginpage = new LoginPage(driver);
@@ -57,7 +73,7 @@ public class ManageAdminUserPageTest extends BaseClassTest {
 		Assert.assertEquals(actualValueString, expectedValue, Constant.userFilter);
 	}
 	
-	@Test(priority = 3)
+	@Test(priority = 3,groups = "Individual")
 	public void verifyNewUserLogin() throws IOException
 	{
 		String userName = ExcelUtilities.getString(1, 0,"AdminUserCreation");
@@ -72,7 +88,7 @@ public class ManageAdminUserPageTest extends BaseClassTest {
 		Assert.assertEquals(actualValueString, expectedValue, Constant.loggedinUser);
 	}
 	
-	@Test(priority = 4)
+	@Test(priority = 4,groups = "Individual")
 	public void verifyUserDeletion() throws IOException
 	{
 		loginpage = new LoginPage(driver);

@@ -1,5 +1,7 @@
 package testCases;
 
+import static org.testng.Assert.assertTrue;
+
 import java.io.IOException;
 
 import org.testng.Assert;
@@ -17,7 +19,20 @@ public class LoginPageTest extends BaseClassTest {
 	HomePage homePage;
 	ScreenShotUtilities screenShotUtilities;
 
+	
 	@Test
+	public void verifyChainingLoginPage()
+	{
+		loginpage = new LoginPage(driver);
+		loginpage.sendUsername(userName);
+		loginpage.sendPassword(password);
+		homePage=loginpage.signInChaining();
+		boolean isNavigatedToHomePage = loginpage.isHomePageDisplayed();
+		assertTrue(isNavigatedToHomePage,Constant.homePageLogin);
+	}
+	
+	
+	@Test(groups = "Individual")
 	public void validDataLogin() throws IOException
 	{
 		loginpage = new LoginPage(driver);
@@ -31,7 +46,7 @@ public class LoginPageTest extends BaseClassTest {
 		Assert.assertEquals(actual, expected, Constant.loginPageStep_validDataLogin);
 	}
 
-	@Test(dataProvider = "dp")
+	@Test(dataProvider = "dp",groups = "Individual")
 	public void inValidDataLogin(String userName, String password) throws IOException 
 	{
 		loginpage = new LoginPage(driver);

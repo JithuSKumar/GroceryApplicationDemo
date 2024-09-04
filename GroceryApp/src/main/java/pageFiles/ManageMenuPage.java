@@ -1,5 +1,6 @@
 package pageFiles;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import utilities.FileUploadUtilities;
 import utilities.GeneralUtilities;
+import utilities.ScreenShotUtilities;
 import utilities.WaitUtilities;
 
 public class ManageMenuPage {
@@ -19,7 +21,14 @@ public class ManageMenuPage {
 	GeneralUtilities generaUtility = new GeneralUtilities();
 	WaitUtilities waitUtility = new WaitUtilities();
 	FileUploadUtilities fileUploadUtility = new FileUploadUtilities();
+	ScreenShotUtilities screenShotUtilities = new ScreenShotUtilities();
 	String menuNameRandomString;
+	String pageTitle;
+	
+	public void pageTitle() {
+		this.pageTitle = driver.getTitle().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+	}
+	
 
 	public ManageMenuPage(WebDriver driver) {
 		this.driver = driver;
@@ -58,6 +67,8 @@ public class ManageMenuPage {
 	WebElement searchElement;
 	@FindBy(id = "sr_name")
 	WebElement searchTextElement;
+	@FindBy(xpath = "//ol[@class='breadcrumb float-sm-right']")
+	WebElement breadCrumbElement;
 
 	public void managePageSelection() {
 		waitUtility.waitForElementClickable(driver, settingsIconElement);
@@ -121,5 +132,27 @@ public class ManageMenuPage {
 				System.out.println("No result");
 			}
 		}
+	}
+	
+	public String getBreadCrumbText() {
+		return breadCrumbElement.getText();
+	}
+
+	
+	public void managePageSelectionChaining() {
+		waitUtility.waitForElementClickable(driver, settingsIconElement);
+		settingsIconElement.click();
+		waitUtility.waitForElementClickable(driver, manageMenuElement);
+		manageMenuElement.click();
+		pageTitle();
+
+		try {
+			screenShotUtilities.captureScreenShot(driver, pageTitle);
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

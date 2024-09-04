@@ -15,12 +15,16 @@ import utilities.WaitUtilities;
 public class ManageContactPage {
 
 	WebDriver driver;
-	String pageTitle;
 
 	GeneralUtilities generaUtility = new GeneralUtilities();
 	WaitUtilities waitUtility = new WaitUtilities();
 	ExcelUtilities excelutility = new ExcelUtilities();
 	ScreenShotUtilities screenShotUtilities = new ScreenShotUtilities();
+	String pageTitle;
+
+	public void pageTitle() {
+		this.pageTitle = driver.getTitle().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+	}
 
 	public ManageContactPage(WebDriver driver) {
 		this.driver = driver;
@@ -36,7 +40,7 @@ public class ManageContactPage {
 	@FindBy(xpath = "//table[@class='table table-bordered table-hover table-sm']//tbody//tr")
 	List<WebElement> tableRows;
 
-	public void pageVisibilityCheck() {
+	public void contactPageVisibilityCheck() {
 		manageContactElement.click();
 	}
 
@@ -45,11 +49,26 @@ public class ManageContactPage {
 	}
 
 	public void saveDataTofile() throws IOException {
-		pageVisibilityCheck();
+		contactPageVisibilityCheck();
 		generaUtility.pageTitle(driver);
 		screenShotUtilities.captureScreenShot(driver, pageTitle);
 		excelutility.saveTableContentsToNewExcelFile(tableRows, generaUtility.pageTitle(driver),
 				this.getClass().getSimpleName());
 	}
 
+	
+	public ManageNewsPage contactPageSelectionChaining() {
+		manageContactElement.click();
+		pageTitle();
+
+		try {
+			screenShotUtilities.captureScreenShot(driver, pageTitle);
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return new ManageNewsPage(driver);
+	}
 }

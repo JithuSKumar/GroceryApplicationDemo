@@ -6,7 +6,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import constant.Constant;
+import pageFiles.HomePage;
 import pageFiles.LoginPage;
+import pageFiles.ManageAdminUserPage;
 import pageFiles.ManageCategoryPage;
 import pageFiles.ManageSubCategoryPage;
 import utilities.ExcelUtilities;
@@ -14,8 +16,10 @@ import utilities.ExcelUtilities;
 public class ManageSubCategoryPageTest extends BaseClassTest {
 	
 	LoginPage loginpage;
-	ManageSubCategoryPage manageSubCategoryPage;
+	HomePage homePage;
+	ManageAdminUserPage adminUserCreationPage;
 	ManageCategoryPage manageCategoryPage;
+	ManageSubCategoryPage manageSubCategoryPage;
 	
 	public String getCreatedCategoryNameString()
 	{	
@@ -29,7 +33,23 @@ public class ManageSubCategoryPageTest extends BaseClassTest {
 
 	String createdCategoryNameString;
 	
-	@Test (priority = 1, groups= {"smoke"})
+	@Test
+	public void verifyChainingSubCategoryPage()
+	{
+		loginpage = new LoginPage(driver);
+		loginpage.sendUsername(userName);
+		loginpage.sendPassword(password);
+		homePage=loginpage.signInChaining();
+		adminUserCreationPage= homePage.getDashboardTextChaining();
+		manageCategoryPage = adminUserCreationPage.adminUserListSelectionChaining();
+		manageSubCategoryPage = manageCategoryPage.categoryPageSelectionChaining();
+		manageSubCategoryPage.subCategoryPageSelectionChaining();
+		String actualValueString = manageSubCategoryPage.getBreadCrumbText();
+		String expectedValue = "List Sub Categories"; 
+		Assert.assertTrue(actualValueString.contains(expectedValue), Constant.breadCrumbsString + expectedValue);
+	}
+	
+	@Test (priority = 1,groups = "Individual")
 	public void verifyIfCategoryListisLoaded() throws IOException
 	{
 		loginpage = new LoginPage(driver);
@@ -42,7 +62,7 @@ public class ManageSubCategoryPageTest extends BaseClassTest {
 		Assert.assertEquals(actualTableStatus, true, Constant.subCategoryList);
 	}
  
-	@Test (priority = 2)
+	@Test (priority = 2,groups = "Individual")
 	public void verifyCreationofNewSubCategory() throws IOException 
 	{
 		loginpage = new LoginPage(driver);
