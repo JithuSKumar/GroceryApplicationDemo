@@ -28,7 +28,7 @@ public class LoginPage {
 	}
 	
 	
-	 //Locating element without page factory
+	 //Locating element without page factory #myRef
 	   
 	/*By passwordElement =By.name("password");
 	
