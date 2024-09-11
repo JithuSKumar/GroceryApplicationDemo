@@ -27,10 +27,10 @@ public class LoginPage {
 		this.pageTitle = driver.getTitle().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
 	}
 	
-	/*
+	
 	 //Locating element without page factory
 	   
-	By passwordElement =By.name("password");
+	/*By passwordElement =By.name("password");
 	
 	public void sendPassword(String password)
 	{

@@ -15,9 +15,6 @@ public class HomePage {
 	ScreenShotUtilities screenShotUtilities = new ScreenShotUtilities();
 	String pageTitle;
 
-	public void pageTitle() {
-		this.pageTitle = driver.getTitle().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
-	}
 
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
@@ -39,6 +36,11 @@ public class HomePage {
 	@FindBy(xpath = "//i[@class='nav-icon fas fa-']")
 	WebElement manageProductElement1;
 
+	
+	public void pageTitle() {
+		this.pageTitle = driver.getTitle().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+	}
+	
 	public String getDashboardText() {
 		return dashboardElement.getText();
 	}
